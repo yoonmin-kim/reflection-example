@@ -1,5 +1,6 @@
 package hello.reflection;
 
+@MyAnnotation("마이어노테이션")
 public class Book {
 
 	private static String B = "BOOK";
