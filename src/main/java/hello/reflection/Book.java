@@ -3,7 +3,7 @@ package hello.reflection;
 @MyAnnotation("마이어노테이션")
 public class Book {
 
-	private static String B = "BOOK";
+	public static String B = "BOOK";
 	private static final String C = "BOOK";
 
 	private String a = "a";
@@ -29,5 +29,9 @@ public class Book {
 
 	public int h() {
 		return 100;
+	}
+
+	public int sum(int a, int b) {
+		return a + b;
 	}
 }

@@ -1,5 +1,9 @@
 package hello.reflection;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
@@ -52,7 +56,34 @@ public class App
     //
     // }
 
-    public static void main(String[] args) {
-        Arrays.stream(Book.class.getAnnotations()).forEach(System.out::println);
+    // public static void main(String[] args) {
+    //     Arrays.stream(Book.class.getAnnotations()).forEach(System.out::println);
+    // }
+
+    public static void main(String[] args) throws
+        ClassNotFoundException,
+        NoSuchMethodException,
+        InvocationTargetException,
+        InstantiationException,
+        IllegalAccessException, NoSuchFieldException {
+        Class<?> bookClass = Class.forName("hello.reflection.Book");
+        Constructor<?> constructor = bookClass.getConstructor(String.class, String.class, String.class);
+        Book book = (Book)constructor.newInstance("x", "y", "z");
+        System.out.println(book);
+
+        Field B = bookClass.getDeclaredField("B");
+        System.out.println(B.get(null));
+        Field d = bookClass.getDeclaredField("d");
+        System.out.println(d.get(book));
+        d.set(book, "test");
+        System.out.println(book.d);
+
+        Method f = bookClass.getDeclaredMethod("f");
+        f.setAccessible(true);
+        f.invoke(book);
+
+        Method sum = bookClass.getDeclaredMethod("sum", int.class, int.class);
+        System.out.println(sum.invoke(book, 2, 3));
+
     }
 }
